@@ -4,34 +4,38 @@ import '../models/food_item.dart';
 class DetailScreen extends StatelessWidget {
   final FoodItem item;
 
-  const DetailScreen({super.key, required this.item});
+  const DetailScreen({required this.item});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(item.name)),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Image.asset(item.image, height: 250, fit: BoxFit.cover),
+          Image.asset(item.image, height: 250, width: double.infinity, fit: BoxFit.cover),
           Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(item.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("Price: Rs. ${item.price}", style: TextStyle(fontSize: 18)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("Rating: ${item.rating}", style: TextStyle(fontSize: 18)),
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Order Now"),
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text(item.description),
+                SizedBox(height: 16),
+                Text("Price: \$${item.price.toStringAsFixed(2)}"),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.amber),
+                    Text(item.rating.toString()),
+                  ],
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  child: Text("Order Now"),
+                )
+              ],
             ),
           )
         ],
